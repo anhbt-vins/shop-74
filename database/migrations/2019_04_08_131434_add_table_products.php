@@ -16,10 +16,11 @@ class AddTableProducts extends Migration
         Schema::create('products', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('name');
-            $table->decimal('price');
+            $table->decimal('price', 24,0)->nullable()->default(0);
+            $table->tinyInteger('highlight');
             $table->bigInteger('quantity');
-            $table->string('avatar');
-            $table->text('description');
+            $table->string('avatar')->nullable();
+            $table->text('description')->nullable();
             $table->timestamps();
         });
     }
