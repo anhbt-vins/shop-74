@@ -25,39 +25,45 @@
 				<div class="panel panel-default">
 					<div class="panel-body">
 						<div class="row">
-							<form action="" method="post">
-								<div class="col-md-12">
-									<div class="form-group">
-										<label for="">Danh mục cha:</label>
-										<select class="form-control" name="parent" >
-											@foreach ($categories as $category)
-												<option value="{{$category->id}}">{{$category->name}}</option>
-													@php
-											if (!is_null($category->sub)) {
-												printSubCategories($category->sub,1);
-											}
-											@endphp
-											@endforeach
-										</select>
+							<div class="col-md-12">
+								@if (session()->has('create'))
+									<div class="alert bg-success" role="alert">
+										<svg class="glyph stroked checkmark">
+											<use xlink:href="#stroked-checkmark"></use>
+										</svg> Đã thêm danh mục thành công! <a href="#" class="pull-right"><span class="glyphicon glyphicon-remove"></span></a>
 									</div>
-									<div class="form-group">
-										<label for="">Tên Danh mục</label>
-										<input type="text" class="form-control" name="name"  placeholder="Tên danh mục mới" value="{{$categoryEdit->name}}">
+								@endif
+							<form action="{{ route('store.category') }}" method="post">
+								@csrf
+							<div class="form-group">
+									<label for="">Danh mục cha:</label>
+									<select class="form-control" name="parent" >
+										<option value="0">----ROOT----</option>
+										{{-- <option>Nam</option>
+										<option>---|Áo khoác nam</option>
+										<option>---|---|Áo khoác nam</option>
+										<option selected>Nữ</option>
+										<option>---|Áo khoác nữ</option> --}}
+									</select>
+								</div>
+								<div class="form-group">
+									<label for="">Tên Danh mục</label>
+									<input type="text" class="form-control" name="name"  placeholder="Tên danh mục mới" required>
+									@if (session()->has('conflict'))
 										<div class="alert bg-danger" role="alert">
-											<svg class="glyph stroked cancel">
-												<use xlink:href="#stroked-cancel"></use>
-											</svg>Tên danh mục đã tồn tại!<a href="#" class="pull-right"><span class="glyphicon glyphicon-remove"></span></a>
-										</div>
+										<svg class="glyph stroked cancel">
+											<use xlink:href="#stroked-cancel"></use>
+										</svg>Tên danh mục đã tồn tại!<a href="#" class="pull-right"><span class="glyphicon glyphicon-remove"></span></a>
 									</div>
-									<button type="submit" class="btn btn-primary">Sửa danh mục</button>
+									@endif
+									
 								</div>
-							</form>
+								<button type="submit" class="btn btn-primary">Thêm mới</button>
+								</form>
+							</div>
+						</div>
+							
 							{{-- <div class="col-md-7">
-								<div class="alert bg-success" role="alert">
-									<svg class="glyph stroked checkmark">
-										<use xlink:href="#stroked-checkmark"></use>
-									</svg> Đã sửa danh mục thành công! <a href="#" class="pull-right"><span class="glyphicon glyphicon-remove"></span></a>
-								</div>
 								<h3 style="margin: 0;"><strong>Phân cấp Menu</strong></h3>
 								<div class="vertical-menu">
 									<div class="item-menu active">Danh mục </div>
@@ -133,25 +139,3 @@
 	</script>
 
 @endsection
-@php
-	function printSubCategories($categories,$nth) {
-		foreach ($categories as $category) {
-			echo '
-					<option value="'.$category->id.'">'.printMark($nth).$category->name.'</option>
-			';
-			if(!is_null($category->sub))
-			{
-				printSubCategories($category->sub, $nth + 1);
-			}
-		}
-	}
-
-	function printMark($time)
-	{  $mark = "";
-		for($i = 0; $i< $time; $i++)
-		{
-			$mark .= '---|';
-		}
-		return $mark;
-	}
-@endphp

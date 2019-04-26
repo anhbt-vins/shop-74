@@ -7,5 +7,5 @@ use Illuminate\Database\Eloquent\Model;
 class customer extends Model
 {
     protected $table = 'customers';
-    protected $guard = [];
+    protected $guarded = [];
 }

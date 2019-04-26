@@ -55,12 +55,12 @@
 	@yield('content')
 
 	<!-- javascript -->
-	<script src="{{ asset('manage/js/jquery-1.11.1.min.js') }}"></script>
 	<script src="{{ asset('manage/js/bootstrap.min.js') }}"></script>
 	<script src="{{ asset('manage/js/chart.min.js') }}"></script>
 	<script src="{{ asset('manage/js/easypiechart.js') }}"></script>
 	<script src="{{ asset('manage/js/easypiechart-data.js') }}"></script>
 	<script src="{{ asset('manage/js/bootstrap-datepicker.js') }}"></script>
+	<script src="{{ asset('manage/js/chart-data.js') }}"></script>
 	<script src="{{ asset('manage/js/chart-data.js') }}"></script>
 
 </body>

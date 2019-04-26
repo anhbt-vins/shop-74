@@ -39,7 +39,12 @@ Route::group(['namespace' => 'Admin', 'prefix' => 'admin'], function() {
 	//categories route
 	Route::group(['prefix' => 'categories'], function() {
 		Route::get('/', 'CategoryController@index')->name('category');	
+		Route::get('/create', 'CategoryController@create')->name('create.category');	
 		Route::get('/{category}/edit', 'CategoryController@edit');
+		Route::post('/', 'CategoryController@store')->name('store.category');
+		Route::delete('{category}', 'CategoryController@destroy');
+		Route::get('/{category}/edit', 'CategoryController@edit');
+		Route::put('{category}', 'CategoryController@update');
 	});
 	//user route
 	Route::group(['prefix' => 'user'], function() {
@@ -50,8 +55,11 @@ Route::group(['namespace' => 'Admin', 'prefix' => 'admin'], function() {
 	//products route
 	Route::group(['prefix' => 'products'], function() {
 		Route::get('/', 'ProductController@index')->name('product');
-		Route::get('/create', 'ProductController@create');
-		Route::get('/{product}/edit', 'ProductController@edit');
+		Route::get('/create', 'ProductController@create')->name('create.product');
+		Route::post('/', 'ProductController@store');
+		Route::delete('{product}', 'ProductController@destroy');
+		Route::get('/{product}/edit', 'ProductController@getEdit')->name('get.edit.product');
+		Route::put('{product}', 'ProductController@update')->name('update.product');
 	});
 	//order route
 	Route::group(['prefix' => 'orders'], function() {
@@ -65,8 +73,6 @@ Route::group(['namespace' => 'Admin', 'prefix' => 'admin'], function() {
 });
 
 // Route::get('time', function() {
-    // $value = config(['app.timezone' => 'America/Chicago']);
-    //     dd($value);
-      // $a = env('DB_CONNECTION');
-      // echo $a;
+//     $dt = \Carbon\Carbon::now();
+// 	return $dt->diffInYears($dt->copy()->addYear());  
 // });
